@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
+    <data-source source="LOCAL" name="myPU" uuid="b95d4e75-3155-410c-b374-382168d52900">
+      <driver-ref>oracle</driver-ref>
+      <imported>true</imported>
+      <remarks>$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml</remarks>
+      <auto-commit>false</auto-commit>
+      <jdbc-driver>oracle.jdbc.OracleDriver</jdbc-driver>
+      <jdbc-url>jdbc:oracle:thin:@atlas.htl-leonding.ac.at:1521:atlasdb</jdbc-url>
+    </data-source>
+  </component>
+</project>

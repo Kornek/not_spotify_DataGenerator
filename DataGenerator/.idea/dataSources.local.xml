@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="myPU" uuid="b95d4e75-3155-410c-b374-382168d52900">
+      <user-name>in130062</user-name>
+      <user-password>dfcedfc5dfd3dfdedfe4dfc3dfdddfd3</user-password>
+      <schema-pattern>*.IN130062 *.PUBLIC *.SYS *.SYSTEM</schema-pattern>
+      <default-schemas>*.IN130062 *.PUBLIC</default-schemas>
+    </data-source>
+  </component>
+</project>
