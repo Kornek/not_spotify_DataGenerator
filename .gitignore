@@ -65,6 +65,4 @@ fabric.properties
 
 # End of https://www.gitignore.io/api/int,intellij
 
-#persistence xml
-src/main/java/resources/META-INF/persistence.xml
 

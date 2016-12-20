@@ -19,7 +19,7 @@
             <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
             <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@atlas.htl-leonding.ac.at:1521:atlasdb"/>
             <property name="javax.persistence.jdbc.user" value="in130062"/>
-            <property name="javax.persistence.jdbc.password" value="passme"/>
+            <property name="javax.persistence.jdbc.password" value=""/>
         </properties>
     </persistence-unit>
 
