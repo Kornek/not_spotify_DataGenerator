@@ -6,7 +6,8 @@
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="" />
         <datasource-mapping>
-          <factory-entry name="myPU" value="b95d4e75-3155-410c-b374-382168d52900" />
+          <factory-entry name="my-app" value="e9beeeac-b69c-4e5c-bf8b-32614e184e0b" />
+          <factory-entry name="myPU" value="af5df2be-390e-49c1-8fb9-8d3bd09201ce" />
         </datasource-mapping>
         <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/main/resources/META-INF/persistence.xml" />
       </configuration>
@@ -17,8 +18,8 @@
     <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
@@ -29,7 +30,7 @@
     <orderEntry type="library" name="Maven: org.eclipse.persistence:commonj.sdo:2.1.1" level="project" />
     <orderEntry type="library" name="Maven: javax.validation:validation-api:1.1.0.Final" level="project" />
     <orderEntry type="library" name="Maven: org.glassfish:javax.json:1.0.4" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.derby:derbyclient:10.13.1.1" level="project" />
     <orderEntry type="library" name="Maven: com.mpatric:mp3agic:0.8.4" level="project" />
+    <orderEntry type="library" name="Maven: com.oracle:ojdbc7:12.1.0.1.0" level="project" />
   </component>
 </module>

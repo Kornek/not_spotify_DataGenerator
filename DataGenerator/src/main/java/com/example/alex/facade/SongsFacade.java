@@ -10,8 +10,7 @@ import javax.persistence.PersistenceContext;
  */
 public class SongsFacade {
     @PersistenceContext
-    public
-    EntityManager em;
+    public EntityManager em;
 
     public void save(Song song){
         em.persist(song);

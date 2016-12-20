@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="dataSourceStorageLocal">
-    <data-source name="myPU" uuid="b95d4e75-3155-410c-b374-382168d52900">
+    <data-source name="Oracle - @atlas.htl-leonding.ac.at" uuid="af5df2be-390e-49c1-8fb9-8d3bd09201ce">
+      <database-info product="Oracle" version="Oracle Database 11g Enterprise Edition Release 11.2.0.1.0 - 64bit Production&#10;With the Partitioning, OLAP, Data Mining and Real Application Testing options" jdbc-version="4.0" driver-name="Oracle JDBC driver" driver-version="12.1.0.2.0">
+        <extra-name-characters>$#</extra-name-characters>
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="upper" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
       <user-name>in130062</user-name>
-      <user-password>dfcedfc5dfd3dfdedfe4dfc3dfdddfd3</user-password>
-      <schema-pattern>*.IN130062 *.PUBLIC *.SYS *.SYSTEM</schema-pattern>
-      <default-schemas>*.IN130062 *.PUBLIC</default-schemas>
+      <resolve-scope>*:IN130062,PUBLIC</resolve-scope>
     </data-source>
   </component>
 </project>
