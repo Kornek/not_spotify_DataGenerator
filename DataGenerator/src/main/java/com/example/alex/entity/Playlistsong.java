@@ -6,8 +6,7 @@ import javax.persistence.*;
  * Created by Alex on 16.12.2016.
  */
 @Entity
-@Table(name = "PLAYLISTSONGS", schema = "IN130062", catalog = "")
-@IdClass(PlaylistsongPK.class)
+@Table(name = "PLAYLISTSONGS", schema = "IN130062")
 public class Playlistsong {
     private long playlistid;
     private long songid;
@@ -54,7 +53,7 @@ public class Playlistsong {
     }
 
     @ManyToOne
-    @JoinColumn(name = "PLAYLISTID", referencedColumnName = "PLAYLISTID", nullable = false)
+    @PrimaryKeyJoinColumn(name = "PLAYLISTID", referencedColumnName = "PLAYLISTID")
     public Playlist getPlaylistsByPlaylistid() {
         return playlistsByPlaylistid;
     }

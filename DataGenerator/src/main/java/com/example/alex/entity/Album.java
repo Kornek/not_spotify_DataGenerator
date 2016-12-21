@@ -2,19 +2,41 @@ package com.example.alex.entity;
 
 import javax.persistence.*;
 import java.util.Arrays;
+import java.util.Collection;
 
 /**
  * Created by Alex on 16.12.2016.
  */
 @Entity
-@Table(name = "ALBUMS", schema = "IN130062", catalog = "")
+@Table(name = "ALBUMS", schema = "IN130062")
 public class Album {
-    private long albumid;
+    @Id
+    @SequenceGenerator(name = "albumSeq", sequenceName = "ALBUMID_SEQ", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "albumSeq")
+    @Column(name = "ALBUMID")
+    protected long albumid;
     private String albumname;
     private byte[] coverimage;
 
-    @Id
-    @Column(name = "ALBUMID")
+    @OneToMany(mappedBy="songAlbum" , fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    private Collection<Song> albumSongs;
+
+    @ManyToOne
+    @JoinColumn(name="ARTISTID", insertable=false, updatable=false)
+    private Artist albumArtist;
+
+    public Album() {
+    }
+
+    public Album(String albumname) {
+        this.albumname = albumname;
+    }
+
+    public Album(String albumname, byte[] coverimage) {
+        this.albumname = albumname;
+        this.coverimage = coverimage;
+    }
+
     public long getAlbumid() {
         return albumid;
     }
@@ -41,6 +63,22 @@ public class Album {
 
     public void setCoverimage(byte[] coverimage) {
         this.coverimage = coverimage;
+    }
+
+    public Collection<Song> getAlbumSongs() {
+        return albumSongs;
+    }
+
+    public void setAlbumSongs(Collection<Song> albumSongs) {
+        this.albumSongs = albumSongs;
+    }
+
+    public Artist getAlbumArtist() {
+        return albumArtist;
+    }
+
+    public void setAlbumArtist(Artist albumArtist) {
+        this.albumArtist = albumArtist;
     }
 
     @Override

@@ -3,19 +3,35 @@ package com.example.alex.entity;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Collection;
 
 /**
  * Created by Alex on 16.12.2016.
  */
 @Entity
-@Table(name = "SONGS", schema = "IN130062", catalog = "")
+@Table(name = "SONGS", schema = "IN130062")
 public class Song implements Serializable{
-    private long songid;
+    @Id
+    @SequenceGenerator(name = "songSeq", sequenceName = "SONGID_SEQ", allocationSize=1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "songSeq")
+    @Column(name = "SONGID")
+    protected long songid;
     private String songname;
     private byte[] songfile;
     private Long tracknr;
     private Album albumsByAlbumid;
     private Artist artistsByArtistid;
+
+    @ManyToOne
+    @JoinColumn(name="ALBUMID", insertable=false, updatable=false)
+    private Album songAlbum;
+
+    @ManyToOne
+    @JoinColumn(name="ARTISTID", insertable=false, updatable=false)
+    private Artist songArtist;
+
+    @ManyToMany(mappedBy = "songs", fetch = FetchType.LAZY)
+    private Collection<Playlist> playlists;
 
     public Song() {
     }
@@ -27,8 +43,7 @@ public class Song implements Serializable{
     }
 
     //region Getter/Setter
-    @Id
-    @Column(name = "SONGID")
+
     public long getSongid() {
         return songid;
     }
@@ -66,6 +81,31 @@ public class Song implements Serializable{
     public void setTracknr(Long tracknr) {
         this.tracknr = tracknr;
     }
+
+    public Album getSongAlbum() {
+        return songAlbum;
+    }
+
+    public void setSongAlbum(Album songAlbum) {
+        this.songAlbum = songAlbum;
+    }
+
+    public Artist getSongArtist() {
+        return songArtist;
+    }
+
+    public void setSongArtist(Artist songArtist) {
+        this.songArtist = songArtist;
+    }
+
+    public Collection<Playlist> getPlaylists() {
+        return playlists;
+    }
+
+    public void setPlaylists(Collection<Playlist> playlists) {
+        this.playlists = playlists;
+    }
+
     //endregion
 
     @Override
@@ -111,4 +151,8 @@ public class Song implements Serializable{
     public void setArtistsByArtistid(Artist artistsByArtistid) {
         this.artistsByArtistid = artistsByArtistid;
     }
+
+
+
+
 }
