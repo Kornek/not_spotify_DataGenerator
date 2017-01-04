@@ -62,23 +62,4 @@ public class Artist {
         this.artistname = artistname;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Artist artist = (Artist) o;
-
-        if (artistid != artist.artistid) return false;
-        if (artistname != null ? !artistname.equals(artist.artistname) : artist.artistname != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = (int) (artistid ^ (artistid >>> 32));
-        result = 31 * result + (artistname != null ? artistname.hashCode() : 0);
-        return result;
-    }
 }

@@ -9,12 +9,14 @@ import java.util.Collection;
  */
 @Entity
 @Table(name = "ALBUMS", schema = "IN130062")
+@SequenceGenerator(name = "albumSeq", sequenceName = "ALBUMID_SEQ", allocationSize=1)
 public class Album {
     @Id
-    @SequenceGenerator(name = "albumSeq", sequenceName = "ALBUMID_SEQ", allocationSize=1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "albumSeq")
     @Column(name = "ALBUMID")
     protected long albumid;
+
+    @Column(name = "ALBUMNAME")
     private String albumname;
     private byte[] coverimage;
 
@@ -45,8 +47,6 @@ public class Album {
         this.albumid = albumid;
     }
 
-    @Basic
-    @Column(name = "ALBUMNAME")
     public String getAlbumname() {
         return albumname;
     }
@@ -55,7 +55,6 @@ public class Album {
         this.albumname = albumname;
     }
 
-    @Basic
     @Column(name = "COVERIMAGE")
     public byte[] getCoverimage() {
         return coverimage;
@@ -81,25 +80,4 @@ public class Album {
         this.albumArtist = albumArtist;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Album album = (Album) o;
-
-        if (albumid != album.albumid) return false;
-        if (albumname != null ? !albumname.equals(album.albumname) : album.albumname != null) return false;
-        if (!Arrays.equals(coverimage, album.coverimage)) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = (int) (albumid ^ (albumid >>> 32));
-        result = 31 * result + (albumname != null ? albumname.hashCode() : 0);
-        result = 31 * result + Arrays.hashCode(coverimage);
-        return result;
-    }
 }

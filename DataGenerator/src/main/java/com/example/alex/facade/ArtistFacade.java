@@ -14,6 +14,9 @@ public class ArtistFacade {
     public EntityManager em;
 
     public void save(Artist artist){
+        em.getTransaction().begin();
         em.persist(artist);
+        em.flush();
+        em.getTransaction().commit();
     }
 }

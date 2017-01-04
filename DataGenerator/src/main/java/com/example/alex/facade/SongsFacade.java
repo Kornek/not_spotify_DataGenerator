@@ -13,7 +13,10 @@ public class SongsFacade {
     public EntityManager em;
 
     public void save(Song song){
+        em.getTransaction().begin();
         em.persist(song);
+        em.flush();
+        em.getTransaction().commit();
     }
 
 }

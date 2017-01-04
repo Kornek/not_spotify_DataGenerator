@@ -15,6 +15,9 @@ public class AlbumFacade {
     public EntityManager em;
 
     public void save(Album album){
+        em.getTransaction().begin();
         em.persist(album);
+        em.flush();
+        em.getTransaction().commit();
     }
 }

@@ -37,14 +37,15 @@ public class Controller {
 
         Artist artist = new Artist("Rise Against");
         Album album = new Album("Endgame");
-        artistFacade.em.getTransaction().begin();
-        albumFacade.em.getTransaction().begin();
-        albumFacade.save(album);
-        artistFacade.save(artist);
         album.setAlbumArtist(artist);
         artist.addAlbum(album);
-        albumFacade.em.getTransaction().commit();
-        artistFacade.em.getTransaction().commit();
+        artistFacade.save(artist);
+
+        albumFacade.save(album);
+
+
+        albumFacade.em.close();
+        artistFacade.em.close();
 
         for (File fileEntry : folder.listFiles()) {
             if (fileEntry.isDirectory()) {
@@ -71,10 +72,8 @@ public class Controller {
                             try {
                                 Song song = new Song(id3v1Tag.getTitle(), Files.readAllBytes(Paths.get(fileEntry.getAbsolutePath())), Long.parseLong(id3v1Tag.getTrack()));
                                 System.out.println(song.getSongfile());
-                                songsFacade.em.getTransaction().begin();
                                 song.setSongAlbum(album);
                                 songsFacade.save(song);
-                                songsFacade.em.getTransaction().commit();
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
