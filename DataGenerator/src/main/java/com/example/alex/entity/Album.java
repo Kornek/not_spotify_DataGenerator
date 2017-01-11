@@ -1,6 +1,7 @@
 package com.example.alex.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -21,7 +22,7 @@ public class Album {
     private byte[] coverimage;
 
     @OneToMany(mappedBy="songAlbum" , fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    private Collection<Song> albumSongs;
+    private Collection<Song> albumSongs = new ArrayList<Song>();
 
     @ManyToOne
     @JoinColumn(name="ARTISTID", insertable=false, updatable=false)
@@ -78,6 +79,7 @@ public class Album {
 
     public void setAlbumArtist(Artist albumArtist) {
         this.albumArtist = albumArtist;
+        albumArtist.addAlbum(this);
     }
 
 }

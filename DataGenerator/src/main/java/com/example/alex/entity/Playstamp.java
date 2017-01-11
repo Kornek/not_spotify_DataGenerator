@@ -32,23 +32,5 @@ public class Playstamp {
         this.played = played;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
 
-        Playstamp playstamp = (Playstamp) o;
-
-        if (playstampid != playstamp.playstampid) return false;
-        if (played != null ? !played.equals(playstamp.played) : playstamp.played != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = (int) (playstampid ^ (playstampid >>> 32));
-        result = 31 * result + (played != null ? played.hashCode() : 0);
-        return result;
-    }
 }

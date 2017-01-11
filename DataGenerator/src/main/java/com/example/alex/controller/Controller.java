@@ -38,7 +38,6 @@ public class Controller {
         Artist artist = new Artist("Rise Against");
         Album album = new Album("Endgame");
         album.setAlbumArtist(artist);
-        artist.addAlbum(album);
         artistFacade.save(artist);
 
         albumFacade.save(album);
@@ -74,6 +73,7 @@ public class Controller {
                                 System.out.println(song.getSongfile());
                                 song.setSongAlbum(album);
                                 songsFacade.save(song);
+
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -87,8 +87,6 @@ public class Controller {
                     e.printStackTrace();
                 }
             }
-
-
         }
         songsFacade.em.close();
     }

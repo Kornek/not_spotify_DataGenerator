@@ -18,7 +18,7 @@ public class Artist {
     private String artistname;
 
     @OneToMany(mappedBy="albumArtist" , fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    private Collection<Album> artistAlbums;
+    private Collection<Album> artistAlbums = new ArrayList<Album>();;
 
     public Artist() {
 
@@ -26,7 +26,6 @@ public class Artist {
 
     public Artist(String artistname) {
         this.artistname = artistname;
-        artistAlbums = new ArrayList<Album>();
     }
 
 
@@ -49,6 +48,9 @@ public class Artist {
     public void addAlbum(Album album) {
         if (!getArtistAlbums().contains(album)) {
             getArtistAlbums().add(album);
+        }
+        if (album.getAlbumArtist() != this) {
+            album.setAlbumArtist(this);
         }
     }
 

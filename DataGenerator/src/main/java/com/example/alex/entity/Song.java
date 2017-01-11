@@ -19,8 +19,6 @@ public class Song implements Serializable{
     private String songname;
     private byte[] songfile;
     private Long tracknr;
-    private Album albumsByAlbumid;
-    private Artist artistsByArtistid;
 
     @ManyToOne
     @JoinColumn(name="ALBUMID", insertable=false, updatable=false)
@@ -107,52 +105,5 @@ public class Song implements Serializable{
     }
 
     //endregion
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Song song = (Song) o;
-
-        if (songid != song.songid) return false;
-        if (songname != null ? !songname.equals(song.songname) : song.songname != null) return false;
-        if (!Arrays.equals(songfile, song.songfile)) return false;
-        if (tracknr != null ? !tracknr.equals(song.tracknr) : song.tracknr != null) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = (int) (songid ^ (songid >>> 32));
-        result = 31 * result + (songname != null ? songname.hashCode() : 0);
-        result = 31 * result + Arrays.hashCode(songfile);
-        result = 31 * result + (tracknr != null ? tracknr.hashCode() : 0);
-        return result;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "ALBUMID", referencedColumnName = "ALBUMID", nullable = false)
-    public Album getAlbumsByAlbumid() {
-        return albumsByAlbumid;
-    }
-
-    public void setAlbumsByAlbumid(Album albumsByAlbumid) {
-        this.albumsByAlbumid = albumsByAlbumid;
-    }
-
-    @ManyToOne
-    @JoinColumn(name = "ARTISTID", referencedColumnName = "ARTISTID")
-    public Artist getArtistsByArtistid() {
-        return artistsByArtistid;
-    }
-
-    public void setArtistsByArtistid(Artist artistsByArtistid) {
-        this.artistsByArtistid = artistsByArtistid;
-    }
-
-
-
 
 }

@@ -16,7 +16,11 @@ public class AlbumFacade {
 
     public void save(Album album){
         em.getTransaction().begin();
-        em.persist(album);
+        if(em.getReference(Album.class, album.getAlbumid()) != null) {
+            em.merge(album);
+        }else {
+            em.persist(album);
+        }
         em.flush();
         em.getTransaction().commit();
     }
