@@ -1,50 +1,46 @@
 package com.example.alex.controller;
 
-import com.example.alex.entity.Album;
-import com.example.alex.entity.Artist;
-import com.example.alex.entity.Song;
-import com.example.alex.facade.AlbumFacade;
-import com.example.alex.facade.ArtistFacade;
-import com.example.alex.facade.SongsFacade;
+import com.example.alex.entity.*;
+import com.example.alex.facade.*;
 import com.mpatric.mp3agic.ID3v1;
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.Mp3File;
 import com.mpatric.mp3agic.UnsupportedTagException;
 
-import javax.persistence.Persistence;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Alex on 16.12.2016.
  */
 public class Controller {
 
-    SongsFacade songsFacade = new SongsFacade();
+    SongFacade songFacade = new SongFacade();
     AlbumFacade albumFacade = new AlbumFacade();
     ArtistFacade artistFacade = new ArtistFacade();
+    GenreFacade genreFacade = new GenreFacade();
+    UserFacade userFacade = new UserFacade();
+    PlaystampFacade playstampFacade = new PlaystampFacade();
 
     public Controller() {
-        songsFacade.em = Persistence.createEntityManagerFactory("myPU").createEntityManager();
-        albumFacade.em = Persistence.createEntityManagerFactory("myPU").createEntityManager();
-        artistFacade.em = Persistence.createEntityManagerFactory("myPU").createEntityManager();
+
     }
 
     public void readMusic(File folder) {
         System.out.println(folder.getPath());
 
         Artist artist = new Artist("Rise Against");
+        artistFacade.persist(artist);
         Album album = new Album("Endgame");
+        Genre genre = genreFacade.getByName("Punk rock");
         album.setAlbumArtist(artist);
-        artistFacade.save(artist);
-
-        albumFacade.save(album);
-
-
-        albumFacade.em.close();
-        artistFacade.em.close();
+        albumFacade.persist(album);
 
         for (File fileEntry : folder.listFiles()) {
             if (fileEntry.isDirectory()) {
@@ -64,16 +60,20 @@ public class Controller {
                             System.out.println("Title: " + id3v1Tag.getTitle());
                             System.out.println("Album: " + id3v1Tag.getAlbum());
                             System.out.println("Year: " + id3v1Tag.getYear());
-                            System.out.println("Genre: " + id3v1Tag.getGenre() + " (" + id3v1Tag.getGenreDescription() + ")");
+                            System.out.println("Genre: " + id3v1Tag.getGenre());
                             System.out.println("Comment: " + id3v1Tag.getComment());
                             System.out.printf("\n");
 
                             try {
                                 Song song = new Song(id3v1Tag.getTitle(), Files.readAllBytes(Paths.get(fileEntry.getAbsolutePath())), Long.parseLong(id3v1Tag.getTrack()));
-                                System.out.println(song.getSongfile());
                                 song.setSongAlbum(album);
-                                songsFacade.save(song);
-
+                                song.setSongArtist(artist);
+                                song.setSongGenre(genre);
+                                //album.addAlbumSong(song);
+                                //artist.addArtistSong(song);
+                                //genre.addGenreSong(song);
+                                songFacade.persist(song);
+                                //albumFacade.merge(album);
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -88,7 +88,52 @@ public class Controller {
                 }
             }
         }
-        songsFacade.em.close();
     }
 
+    public void persistGenres() {
+        List<String> genres = Arrays.asList("Alternative rock", "Hard rock", "Heavy metal", "Nu metal", "Metalcore",
+                "Folk metal", "Punk rock");
+        for (String s :
+                genres) {
+            Genre genre = new Genre();
+            genre.setGenrename(s);
+            genreFacade.persist(genre);
+        }
+    }
+
+    public void createUsers() {
+        for (int i = 1; i < 10; i++) {
+            User u = new User();
+            u.setUsername("test" + i);
+            u.setEmail("test" + i + "@gmail.com");
+            u.setPassword("passme" + i);
+            u.setFirstname("Dango");
+            u.setLastname("Hundenberger");
+            userFacade.persist(u);
+        }
+
+    }
+
+    public void generateClicks() {
+        Random r = new Random();
+        for (int i = 0; i < 5; i++) {
+            User u = userFacade.getRandomUser();
+            int number = r.nextInt(100);
+            for (int j = 0; j < number; j++) {
+                Playstamp ps = new Playstamp();
+                ps.setPlaystampUser(u);
+                ps.setPlaystampSong(songFacade.getRandomSong());
+                ps.setPlayed(java.sql.Timestamp.valueOf(LocalDateTime.now()));
+                playstampFacade.persist(ps);
+            }
+        }
+
+    }
+
+    public void close() {
+        songFacade.close();
+        albumFacade.close();
+        artistFacade.close();
+        genreFacade.close();
+    }
 }

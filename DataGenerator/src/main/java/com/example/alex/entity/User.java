@@ -1,24 +1,37 @@
 package com.example.alex.entity;
 
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import com.sun.media.jfxmedia.events.PlayerStateEvent;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * Created by Alex on 16.12.2016.
  */
 @Entity
+@Table(name = "USERS")
 public class User {
+    @Id
+    @SequenceGenerator(name = "userSeq", sequenceName = "USERID_SEQ", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "userSeq")
+    @Column(name = "USERID")
     private long userid;
+    @Column(name = "USERNAME")
     private String username;
+    @Column(name = "FIRSTNAME")
     private String firstname;
+    @Column(name = "LASTNAME")
     private String lastname;
+    @Column(name = "EMAIL")
     private String email;
+    @Column(name = "PASSWORD")
     private String password;
 
-    @Id
-    @Column(name = "USERID")
+    @OneToMany(mappedBy = "playstampUser", cascade = CascadeType.ALL)
+    private Collection<Playstamp> userPlaystamp = new ArrayList<Playstamp>();
+
+    //region GET/SET
     public long getUserid() {
         return userid;
     }
@@ -27,8 +40,6 @@ public class User {
         this.userid = userid;
     }
 
-    @Basic
-    @Column(name = "USERNAME")
     public String getUsername() {
         return username;
     }
@@ -37,8 +48,6 @@ public class User {
         this.username = username;
     }
 
-    @Basic
-    @Column(name = "FIRSTNAME")
     public String getFirstname() {
         return firstname;
     }
@@ -47,8 +56,6 @@ public class User {
         this.firstname = firstname;
     }
 
-    @Basic
-    @Column(name = "LASTNAME")
     public String getLastname() {
         return lastname;
     }
@@ -57,8 +64,6 @@ public class User {
         this.lastname = lastname;
     }
 
-    @Basic
-    @Column(name = "EMAIL")
     public String getEmail() {
         return email;
     }
@@ -67,8 +72,6 @@ public class User {
         this.email = email;
     }
 
-    @Basic
-    @Column(name = "PASSWORD")
     public String getPassword() {
         return password;
     }
@@ -77,31 +80,24 @@ public class User {
         this.password = password;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        User user = (User) o;
-
-        if (userid != user.userid) return false;
-        if (username != null ? !username.equals(user.username) : user.username != null) return false;
-        if (firstname != null ? !firstname.equals(user.firstname) : user.firstname != null) return false;
-        if (lastname != null ? !lastname.equals(user.lastname) : user.lastname != null) return false;
-        if (email != null ? !email.equals(user.email) : user.email != null) return false;
-        if (password != null ? !password.equals(user.password) : user.password != null) return false;
-
-        return true;
+    public Collection<Playstamp> getUserPlaystamp() {
+        return userPlaystamp;
     }
 
-    @Override
-    public int hashCode() {
-        int result = (int) (userid ^ (userid >>> 32));
-        result = 31 * result + (username != null ? username.hashCode() : 0);
-        result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
-        result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
-        result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
-        return result;
+    public void setUserPlaystamp(Collection<Playstamp> userPlaystamp) {
+        this.userPlaystamp = userPlaystamp;
     }
+
+    public void addUserPlaystamp(Playstamp playstamp) {
+        if (!getUserPlaystamp().contains(playstamp)) {
+            getUserPlaystamp().add(playstamp);
+        }
+        if (playstamp.getPlaystampUser() != this) {
+            playstamp.setPlaystampUser(this);
+        }
+
+    }
+
+    //endregion
+
 }

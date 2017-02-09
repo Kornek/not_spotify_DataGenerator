@@ -11,5 +11,25 @@
       <user-name>in130062</user-name>
       <resolve-scope>*:IN130062,PUBLIC</resolve-scope>
     </data-source>
+    <data-source name="@192.168.56.101" uuid="38075585-0e7b-46dd-b8a6-dd7d1f857950">
+      <database-info product="Oracle" version="Oracle Database 11g Express Edition Release 11.2.0.2.0 - 64bit Production" jdbc-version="4.0" driver-name="Oracle JDBC driver" driver-version="12.1.0.2.0">
+        <extra-name-characters>$#</extra-name-characters>
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="upper" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>htl</user-name>
+      <resolve-scope>*:HTL,PUBLIC</resolve-scope>
+    </data-source>
+    <data-source name="@delphi.htl-leonding.ac.at" uuid="d94c8be5-6b7f-483e-bdc4-5ed77d803e91">
+      <database-info product="Oracle" version="Oracle Database 12c Enterprise Edition Release 12.1.0.2.0 - 64bit Production&#10;With the Partitioning, OLAP, Advanced Analytics and Real Application Testing options" jdbc-version="4.0" driver-name="Oracle JDBC driver" driver-version="12.1.0.2.0">
+        <extra-name-characters>$#</extra-name-characters>
+        <identifier-quote-string>&quot;</identifier-quote-string>
+      </database-info>
+      <case-sensitivity plain-identifiers="upper" quoted-identifiers="exact" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>in130062</user-name>
+      <resolve-scope>*:IN130062,PUBLIC</resolve-scope>
+    </data-source>
   </component>
 </project>

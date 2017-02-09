@@ -1,5 +1,7 @@
 package com.example.alex.entity;
 
+import oracle.net.aso.s;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,25 +11,30 @@ import java.util.Collection;
  * Created by Alex on 16.12.2016.
  */
 @Entity
-@Table(name = "ALBUMS", schema = "IN130062")
-@SequenceGenerator(name = "albumSeq", sequenceName = "ALBUMID_SEQ", allocationSize=1)
+@Table(name = "ALBUMS")
 public class Album {
     @Id
+    @SequenceGenerator(name = "albumSeq", sequenceName = "ALBUMID_SEQ", allocationSize=1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "albumSeq")
     @Column(name = "ALBUMID")
-    protected long albumid;
+    private long albumid;
 
     @Column(name = "ALBUMNAME")
     private String albumname;
+
+    @Column(name = "COVERIMAGE")
     private byte[] coverimage;
 
-    @OneToMany(mappedBy="songAlbum" , fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy="songAlbum" , cascade = CascadeType.ALL)
     private Collection<Song> albumSongs = new ArrayList<Song>();
 
+
     @ManyToOne
-    @JoinColumn(name="ARTISTID", insertable=false, updatable=false)
+    @JoinColumn(name="ARTISTID")
     private Artist albumArtist;
 
+
+    //region Ctor
     public Album() {
     }
 
@@ -39,7 +46,9 @@ public class Album {
         this.albumname = albumname;
         this.coverimage = coverimage;
     }
+    //endregion
 
+    //region Get/Set
     public long getAlbumid() {
         return albumid;
     }
@@ -56,7 +65,6 @@ public class Album {
         this.albumname = albumname;
     }
 
-    @Column(name = "COVERIMAGE")
     public byte[] getCoverimage() {
         return coverimage;
     }
@@ -73,13 +81,24 @@ public class Album {
         this.albumSongs = albumSongs;
     }
 
+    public void addAlbumSong(Song song){
+        if (!getAlbumSongs().contains(song)) {
+            albumSongs.add(song);
+        }
+        if(song.getSongAlbum() != this){
+            song.setSongAlbum(this);
+        }
+    }
+
     public Artist getAlbumArtist() {
         return albumArtist;
     }
 
     public void setAlbumArtist(Artist albumArtist) {
         this.albumArtist = albumArtist;
+        System.out.println("artist added");
         albumArtist.addAlbum(this);
     }
+    //endregion
 
 }

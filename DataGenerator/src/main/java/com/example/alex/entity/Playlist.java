@@ -9,12 +9,14 @@ import java.util.List;
  * Created by Alex on 16.12.2016.
  */
 @Entity
-@Table(name = "PLAYLISTS", schema = "IN130062", catalog = "")
+@Table(name = "PLAYLISTS")
 public class Playlist {
     @Id
     @Column(name = "PLAYLISTID")
     private long playlistid;
+    @Column(name = "PLAYLISTNAME")
     private String playlistname;
+    @Column(name = "CREATED")
     private Time created;
 
 
@@ -26,8 +28,6 @@ public class Playlist {
         this.playlistid = playlistid;
     }
 
-    @Basic
-    @Column(name = "PLAYLISTNAME")
     public String getPlaylistname() {
         return playlistname;
     }
@@ -36,8 +36,6 @@ public class Playlist {
         this.playlistname = playlistname;
     }
 
-    @Basic
-    @Column(name = "CREATED")
     public Time getCreated() {
         return created;
     }

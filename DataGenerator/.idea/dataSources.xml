@@ -7,5 +7,17 @@
       <jdbc-driver>oracle.jdbc.OracleDriver</jdbc-driver>
       <jdbc-url>jdbc:oracle:thin:@atlas.htl-leonding.ac.at:1521:atlasdb</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="@192.168.56.101" uuid="38075585-0e7b-46dd-b8a6-dd7d1f857950">
+      <driver-ref>oracle</driver-ref>
+      <auto-commit>false</auto-commit>
+      <jdbc-driver>oracle.jdbc.OracleDriver</jdbc-driver>
+      <jdbc-url>jdbc:oracle:thin:@192.168.56.101:1521:XE</jdbc-url>
+    </data-source>
+    <data-source source="LOCAL" name="@delphi.htl-leonding.ac.at" uuid="d94c8be5-6b7f-483e-bdc4-5ed77d803e91">
+      <driver-ref>oracle</driver-ref>
+      <auto-commit>false</auto-commit>
+      <jdbc-driver>oracle.jdbc.OracleDriver</jdbc-driver>
+      <jdbc-url>jdbc:oracle:thin:@delphi.htl-leonding.ac.at:1521:delphidb</jdbc-url>
+    </data-source>
   </component>
 </project>

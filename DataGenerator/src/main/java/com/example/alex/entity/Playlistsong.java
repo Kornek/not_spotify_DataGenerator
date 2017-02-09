@@ -6,14 +6,19 @@ import javax.persistence.*;
  * Created by Alex on 16.12.2016.
  */
 @Entity
-@Table(name = "PLAYLISTSONGS", schema = "IN130062")
+@Table(name = "PLAYLISTSONGS")
 public class Playlistsong {
-    private long playlistid;
-    private long songid;
-    private Playlist playlistsByPlaylistid;
-
     @Id
     @Column(name = "PLAYLISTID")
+    private long playlistid;
+    @Id
+    @Column(name = "SONGID")
+    private long songid;
+    @ManyToOne
+    @PrimaryKeyJoinColumn(name = "PLAYLISTID", referencedColumnName = "PLAYLISTID")
+    private Playlist playlistsByPlaylistid;
+
+
     public long getPlaylistid() {
         return playlistid;
     }
@@ -22,8 +27,7 @@ public class Playlistsong {
         this.playlistid = playlistid;
     }
 
-    @Id
-    @Column(name = "SONGID")
+
     public long getSongid() {
         return songid;
     }
@@ -32,28 +36,6 @@ public class Playlistsong {
         this.songid = songid;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Playlistsong that = (Playlistsong) o;
-
-        if (playlistid != that.playlistid) return false;
-        if (songid != that.songid) return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        int result = (int) (playlistid ^ (playlistid >>> 32));
-        result = 31 * result + (int) (songid ^ (songid >>> 32));
-        return result;
-    }
-
-    @ManyToOne
-    @PrimaryKeyJoinColumn(name = "PLAYLISTID", referencedColumnName = "PLAYLISTID")
     public Playlist getPlaylistsByPlaylistid() {
         return playlistsByPlaylistid;
     }
